@@ -15,6 +15,8 @@ for STM32 microcontrollers, developed without HAL.
 - I2C
 - SPI
 - CAN (planned)
+- RS-485 (planned)
+- RS-232 (planned)
 
 ## Toolchain
 - arm-none-eabi-gcc
