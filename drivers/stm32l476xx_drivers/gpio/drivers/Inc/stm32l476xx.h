@@ -55,9 +55,10 @@
 #define SPI2_BASEADDR                                  (APB1PERIPH_BASE + 0x3800) //SPI2
 
 /*
- * Base Addresses for APB2 (EXTI) bus
+ * Base Addresses for APB2 (EXTI, SYSCFG) bus
  * Todo: Complete for peripherals on bus
  *  */
  #define EXTI_BASEADDR                                 (APB2PERIPH_BASE + 0x0400) //EXTI
+ #define SYSCFG_BASEADDR                               (APB2PERIPH_BASE + 0x0000) //SYSCFG
 
 #endif /* INC_STM32L476XX_H_ */
