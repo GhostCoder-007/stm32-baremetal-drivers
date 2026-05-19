@@ -61,4 +61,29 @@
  #define EXTI_BASEADDR                                 (APB2PERIPH_BASE + 0x0400) //EXTI
  #define SYSCFG_BASEADDR                               (APB2PERIPH_BASE + 0x0000) //SYSCFG
 
+ /*
+ * Register peripheral structure for GPIOx peripheral
+ * Used as a placeholder for the GPIO peripheral register definitions, 
+ * and to create a pointer to the GPIO peripheral base address for easy access to the registers.
+ */
+ typedef struct 
+ {
+
+    uint32_t MODER;    /*|< GPIO port mode register,                           Address offset: 0x00 */
+    uint32_t OTYPER;   /*|< GPIO port output type register,                    Address offset: 0x04 */
+    uint32_t OSPEEDR;  /*|< GPIO port output speed register,                   Address offset: 0x08 */
+    uint32_t PUPDR;    /*|< GPIO port pull-up/pull-down register,              Address offset: 0x0C */
+    uint32_t IDR;      /*|< GPIO port input data register,                     Address offset: 0x10 */
+    uint32_t ODR;      /*|< GPIO port output data register,                    Address offset: 0x14 */
+    uint32_t BSRR;     /*|< GPIO port bit set/reset register,                  Address offset: 0x18 */
+    uint32_t LCKR;     /*|< GPIO port configuration lock register,             Address offset: 0x1C */
+    uint32_t AFR[2];   /*|< GPIO alternate function low/high register,         Address offset: 0x20-0x24 */
+    uint32_t BRR;      /*|< GPIO port bit reset register,                      Address offset: 0x28 */
+    uint32_t ASCR;     /*|< GPIO port analog switch control register,          Address offset: 0x2C */
+
+ } GPIO_regDef_t;
+
+ //GPIO_regDef_t *pGPIOA = (GPIO_regDef_t *) GPIOA_BASEADDR;   pointer to struct fot GPIOA peripheral base address, used to access the registers of GPIOA peripheral
+ //GPIO_regDef_t *pGPIOB = (GPIO_regDef_t *) GPIOB_BASEADDR;
+
 #endif /* INC_STM32L476XX_H_ */
