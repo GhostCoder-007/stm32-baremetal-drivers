@@ -86,6 +86,20 @@
 
  } GPIO_regDef_t;
 
+/*
+* Creating Periphral definitions for GPIO
+* Base address is typecast to GPIO_regDef_t
+*/
+
+#define GPIOA (GPIO_regDef_t *) GPIOA_BASEADDR 
+#define GPIOB (GPIO_regDef_t *) GPIOB_BASEADDR 
+#define GPIOC (GPIO_regDef_t *) GPIOC_BASEADDR 
+#define GPIOD (GPIO_regDef_t *) GPIOD_BASEADDR 
+#define GPIOE (GPIO_regDef_t *) GPIOE_BASEADDR 
+#define GPIOF (GPIO_regDef_t *) GPIOF_BASEADDR 
+#define GPIOG (GPIO_regDef_t *) GPIOG_BASEADDR 
+#define GPIOH (GPIO_regDef_t *) GPIOH_BASEADDR 
+
  //GPIO_regDef_t *pGPIOA = (GPIO_regDef_t *) GPIOA_BASEADDR;   pointer to struct fot GPIOA peripheral base address, used to access the registers of GPIOA peripheral
  //GPIO_regDef_t *pGPIOB = (GPIO_regDef_t *) GPIOB_BASEADDR;
 
