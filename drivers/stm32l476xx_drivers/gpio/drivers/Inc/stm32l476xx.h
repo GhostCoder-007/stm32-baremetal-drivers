@@ -25,9 +25,10 @@
 #define AHB2PERIPH_BASE                                0x48000000U
 
 /*
- * Base Addresses for AHB1 bus
+ * Base Addresses for AHB1 bus (RCC)
  * 
  *  */
+#define RCC_BASEADDR                                    (AHB1PERIPH_BASE + 0x1000) 
 
 /*
  * Base Addresses for AHB2 (GPIO) bus
@@ -85,6 +86,33 @@
     __vo uint32_t ASCR;     /*|< GPIO port analog switch control register,            Address offset: 0x2C */
 
  } GPIO_regDef_t;
+
+ typedef struct 
+ {
+    __vo uint32_t CR;          /*|< RCC clock control register,                           Address offset: 0x00 */
+    __vo uint32_t ICSCR;       /*|< RCC internal clock sources calibration register,      Address offset: 0x04 */
+    __vo uint32_t CFGR;        /*|< RCC clock configuration register,                     Address offset: 0x08 */
+    __vo uint32_t PLLCFGR;     /*|< RCC PLL configuration register,                       Address offset: 0x0C */
+    __vo uint32_t PLLSAI1CFGR; /*|< RCC PLLSAI1 configuration register,                   Address offset: 0x10 */
+    __vo uint32_t PLLSAI2CFGR; /*|< RCC PLLSAI2 configuration register,                   Address offset: 0x14 */
+    __vo uint32_t CIER;        /*|< RCC clock interrupt enable register,                  Address offset: 0x18 */
+    __vo uint32_t CIFR;        /*|< RCC clock interrupt flag register,                    Address offset: 0x1C */
+    __vo uint32_t CICR;        /*|< RCC clock interrupt clear register,                   Address offset: 0x20 */
+    __vo uint32_t AHB1RSTR;    /*|< RCC AHB1 peripheral reset register,                   Address offset: 0x28 */
+    __vo uint32_t AHB2RSTR;    /*|< RCC AHB2 peripheral reset register,                   Address offset: 0x2C */
+    __vo uint32_t AHB3RSTR;    /*|< RCC AHB3 peripheral reset register,                   Address offset: 0x30 */
+    __vo uint32_t APB1RSTR1;   /*|< RCC APB1 peripheral reset register 1,                 Address offset: 0x38 */
+    __vo uint32_t APB1RSTR2;   /*|< RCC APB1 peripheral reset register 2,                 Address offset: 0x3C */
+    __vo uint32_t APB2RSTR;    /*|< RCC APB2 peripheral reset register,                   Address offset: 0x40 */
+    __vo uint32_t AHB1ENR;     /*|< RCC AHB1 peripheral clock enable register,            Address offset: 0x48 */
+    __vo uint32_t AHB2ENR;     /*|< RCC AHB2 peripheral clock enable register,            Address offset: 0x4C */
+    __vo uint32_t AHB3ENR;     /*|< RCC AHB3 peripheral clock enable register,            Address offset: 0x50 */
+    __vo uint32_t APB1ENR1;    /*|< RCC APB1 peripheral clock enable register 1,          Address offset: 0x58 */
+    __vo uint32_t APB1ENR2;    /*|< RCC APB1 peripheral clock enable register 2,          Address offset: 0x5C */
+    __vo uint32_t APB2ENR;     /*|< RCC APB2 peripheral clock enable register,            Address offset: 0x60 */
+
+ } RCC_RegDef_t;
+ 
 
 /*
 * Creating Periphral definitions for GPIO
