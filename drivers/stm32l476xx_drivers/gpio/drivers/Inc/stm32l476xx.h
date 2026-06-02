@@ -118,7 +118,6 @@
 
  } RCC_RegDef_t;
  
-
 /*
 * Creating Periphral definitions for GPIO
 * Base address is typecast to GPIO_regDef_t
@@ -133,23 +132,67 @@
 #define GPIOG (GPIO_regDef_t *) GPIOG_BASEADDR 
 #define GPIOH (GPIO_regDef_t *) GPIOH_BASEADDR 
 #define GPIOI (GPIO_regDef_t *) GPIOI_BASEADDR 
+#define RCC   (RCC_RegDef_t *)  RCC_BASEADDR
 
- //GPIO_regDef_t *pGPIOA = (GPIO_regDef_t *) GPIOA_BASEADDR;   pointer to struct fot GPIOA peripheral base address, used to access the registers of GPIOA peripheral
- //GPIO_regDef_t *pGPIOB = (GPIO_regDef_t *) GPIOB_BASEADDR;
-
-
- #define RCC (RCC_RegDef_t *) RCC_BASEADDR
-
+//GPIO_regDef_t *pGPIOA = (GPIO_regDef_t *) GPIOA_BASEADDR;   pointer to struct fot GPIOA peripheral base address, used to access the registers of GPIOA peripheral
+//GPIO_regDef_t *pGPIOB = (GPIO_regDef_t *) GPIOB_BASEADDR;
 
  /* clock enable macros for GPIOx peripherals */
+#define GPIOA_PCLK_EN()      RCC->AHB2ENR |= (1 << 0)
+#define GPIOB_PCLK_EN()      RCC->AHB2ENR |= (1 << 1)
+#define GPIOC_PCLK_EN()      RCC->AHB2ENR |= (1 << 2)
+#define GPIOD_PCLK_EN()      RCC->AHB2ENR |= (1 << 3)
+#define GPIOE_PCLK_EN()      RCC->AHB2ENR |= (1 << 4)
+#define GPIOF_PCLK_EN()      RCC->AHB2ENR |= (1 << 5)
+#define GPIOG_PCLK_EN()      RCC->AHB2ENR |= (1 << 6)
+#define GPIOH_PCLK_EN()      RCC->AHB2ENR |= (1 << 7)
+#define GPIOI_PCLK_EN()      RCC->AHB2ENR |= (1 << 8)
 
- #define GPIOA_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 0)
- #define GPIOB_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 1)
- #define GPIOC_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 2)
- #define GPIOD_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 3)
- #define GPIOE_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 4)
- #define GPIOF_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 5)
- #define GPIOG_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 6)
- #define GPIOH_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 7)
+ /* clock disable macros for GPIOx peripherals */
+#define GPIOA_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 0)
+#define GPIOB_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 1)
+#define GPIOC_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 2)
+#define GPIOD_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 3)
+#define GPIOE_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 4)
+#define GPIOF_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 5)
+#define GPIOG_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 6)
+#define GPIOH_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 7)
+#define GPIOI_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 8)
+
+/* clock enable macro for spi peripheral */
+#define SPI2_PCLK_EN()       RCC->APB1ENR1 |= (1 << 14)
+#define SPI3_PCLK_EN()       RCC->APB1ENR1 |= (1 << 15)
+
+/* clock disable macro for spi peripheral */
+#define SPI2_PCLK_DISABLE()       RCC->APB1ENR1 &= ~(1 << 14)
+#define SPI3_PCLK_DISABLE()       RCC->APB1ENR1 &= ~(1 << 15)
+
+/* clock enable macro for USART* peripheral */
+#define USART2_PCLK_EN()     RCC->APB1ENR1 |= (1 << 17)
+#define USART3_PCLK_EN()     RCC->APB1ENR1 |= (1 << 18)
+#define UART4_PCLK_EN()      RCC->APB1ENR1 |= (1 << 19)
+#define UART5_PCLK_EN()      RCC->APB1ENR1 |= (1 << 20)
+
+/* clock disable macro for USART* peripheral */
+#define USART2_PCLK_DISABLE()     RCC->APB1ENR1 &= ~(1 << 17)
+#define USART3_PCLK_DISABLE()     RCC->APB1ENR1 &= ~(1 << 18)
+#define UART4_PCLK_DISABLE()      RCC->APB1ENR1 &= ~(1 << 19)
+#define UART5_PCLK_DISABLE()      RCC->APB1ENR1 &= ~(1 << 20)
+
+/* clock enable macro for SYSCFG  peripheral*/
+#define SYSCFG_PCLK_EN()     RCC->APB2ENR |= (1 << 0)
+
+/* clock disable macro for SYSCFG  peripheral*/
+#define SYSCFG_PCLK_DISABLE()     RCC->APB2ENR &= ~(1 << 0)
+
+/* clock enable macro for I2Cx peripherals*/
+#define I2C1_PCLK_EN()      RCC->APB1ENR1 |= (1 << 21)
+#define I2C2_PCLK_EN()      RCC->APB1ENR1 |= (1 << 22)
+#define I2C3_PCLK_EN()      RCC->APB1ENR1 |= (1 << 23)
+
+/* clock disable macro for I2Cx peripherals*/
+#define I2C1_PCLK_DISABLE()      RCC->APB1ENR1 &= ~(1 << 21)
+#define I2C2_PCLK_DISABLE()      RCC->APB1ENR1 &= ~(1 << 22)
+#define I2C3_PCLK_DISABLE()      RCC->APB1ENR1 &= ~(1 << 23)
 
 #endif /* INC_STM32L476XX_H_ */
