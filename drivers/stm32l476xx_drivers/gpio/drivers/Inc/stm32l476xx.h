@@ -34,6 +34,7 @@
  * Base Addresses for AHB2 (GPIO) bus
  * Todo: Complete for peripherals on bus
  *  */
+#define GPIOI_BASEADDR                                 (AHB2PERIPH_BASE + 0x2000) //GPIOI
 #define GPIOH_BASEADDR                                 (AHB2PERIPH_BASE + 0x1C00) //GPIOH
 #define GPIOG_BASEADDR                                 (AHB2PERIPH_BASE + 0x1800) //GPIOG
 #define GPIOF_BASEADDR                                 (AHB2PERIPH_BASE + 0x1400) //GPIOF
@@ -131,6 +132,7 @@
 #define GPIOF (GPIO_regDef_t *) GPIOF_BASEADDR 
 #define GPIOG (GPIO_regDef_t *) GPIOG_BASEADDR 
 #define GPIOH (GPIO_regDef_t *) GPIOH_BASEADDR 
+#define GPIOI (GPIO_regDef_t *) GPIOI_BASEADDR 
 
  //GPIO_regDef_t *pGPIOA = (GPIO_regDef_t *) GPIOA_BASEADDR;   pointer to struct fot GPIOA peripheral base address, used to access the registers of GPIOA peripheral
  //GPIO_regDef_t *pGPIOB = (GPIO_regDef_t *) GPIOB_BASEADDR;
@@ -140,6 +142,14 @@
 
 
  /* clock enable macros for GPIOx peripherals */
- 
+
+ #define GPIOA_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 0)
+ #define GPIOB_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 1)
+ #define GPIOC_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 2)
+ #define GPIOD_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 3)
+ #define GPIOE_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 4)
+ #define GPIOF_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 5)
+ #define GPIOG_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 6)
+ #define GPIOH_PERI_CLOCK_ENABLE()      RCC->AHB2ENR |= (1 << 7)
 
 #endif /* INC_STM32L476XX_H_ */
