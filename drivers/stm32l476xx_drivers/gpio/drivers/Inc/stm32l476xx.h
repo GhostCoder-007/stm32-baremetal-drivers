@@ -98,15 +98,19 @@
     __vo uint32_t CIER;        /*|< RCC clock interrupt enable register,                  Address offset: 0x18 */
     __vo uint32_t CIFR;        /*|< RCC clock interrupt flag register,                    Address offset: 0x1C */
     __vo uint32_t CICR;        /*|< RCC clock interrupt clear register,                   Address offset: 0x20 */
+    uint32_t RESERVED0;        /*|< Reserved, 0x24 */
     __vo uint32_t AHB1RSTR;    /*|< RCC AHB1 peripheral reset register,                   Address offset: 0x28 */
     __vo uint32_t AHB2RSTR;    /*|< RCC AHB2 peripheral reset register,                   Address offset: 0x2C */
     __vo uint32_t AHB3RSTR;    /*|< RCC AHB3 peripheral reset register,                   Address offset: 0x30 */
+    uint32_t RESERVED1;        /*|< Reserved, 0x34 */
     __vo uint32_t APB1RSTR1;   /*|< RCC APB1 peripheral reset register 1,                 Address offset: 0x38 */
     __vo uint32_t APB1RSTR2;   /*|< RCC APB1 peripheral reset register 2,                 Address offset: 0x3C */
     __vo uint32_t APB2RSTR;    /*|< RCC APB2 peripheral reset register,                   Address offset: 0x40 */
+    uint32_t RESERVED2;        /*|< Reserved, 0x44 */
     __vo uint32_t AHB1ENR;     /*|< RCC AHB1 peripheral clock enable register,            Address offset: 0x48 */
     __vo uint32_t AHB2ENR;     /*|< RCC AHB2 peripheral clock enable register,            Address offset: 0x4C */
     __vo uint32_t AHB3ENR;     /*|< RCC AHB3 peripheral clock enable register,            Address offset: 0x50 */
+    uint32_t RESERVED3;        /*|< Reserved, 0x54 */
     __vo uint32_t APB1ENR1;    /*|< RCC APB1 peripheral clock enable register 1,          Address offset: 0x58 */
     __vo uint32_t APB1ENR2;    /*|< RCC APB1 peripheral clock enable register 2,          Address offset: 0x5C */
     __vo uint32_t APB2ENR;     /*|< RCC APB2 peripheral clock enable register,            Address offset: 0x60 */
@@ -130,5 +134,12 @@
 
  //GPIO_regDef_t *pGPIOA = (GPIO_regDef_t *) GPIOA_BASEADDR;   pointer to struct fot GPIOA peripheral base address, used to access the registers of GPIOA peripheral
  //GPIO_regDef_t *pGPIOB = (GPIO_regDef_t *) GPIOB_BASEADDR;
+
+
+ #define RCC (RCC_RegDef_t *) RCC_BASEADDR
+
+
+ /* clock enable macros for GPIOx peripherals */
+ 
 
 #endif /* INC_STM32L476XX_H_ */
