@@ -27,4 +27,35 @@ typedef struct
 
 }GPIO_HANDLE_t;
 
+/********************************************************************************
+*                      APIs supported by this driver
+*       For more information about the APIs, check the function definitions
+********************************************************************************/
+// Prototyping the GPIO API's
+
+void GPIO_PeriClock_Control(void);
+
+/*
+
+*/
+
+void GPIO_Init(void);
+void GPIO_DeInit(void);
+
+/*
+GPIO Read and Write
+*/
+
+void GPIO_ReadFromInputPin(void);
+void GPIO_ReadFromInputPort(void);
+void GPIO_WriteToOutputPin(void);
+void GPIO_WriteToOutputPort(void);    
+void GPIO_ToggleOutputPin(void);
+
+/*
+ISR ORQ
+*/
+void GPIO_IRQConfig(void); //irq number for configuring
+void GPIO_ISRHandling(void); 
+
 #endif /* INC_STM32L476XX_GPIO_DRIVER_H_ */
