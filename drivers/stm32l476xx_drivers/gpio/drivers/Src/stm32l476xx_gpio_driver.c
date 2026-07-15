@@ -43,3 +43,49 @@ void GPIO_PeriClock_Control(GPIO_regDef_t *pGPIOx, uint8_t EnorDi)
         else if (pGPIOx == GPIOH) {GPIOH_PCLK_DISABLE();}
     }
 }
+/**********************************************************************************
+ * @fn                - GPIO_Init
+ * 
+ * @brief             - Enables or disables the peripheral clock for the given GPIO port.
+ * 
+ * @param[in]         - pGPIOHandle.
+ * @param[in]         - 
+ * 
+ * @return            - None
+ */
+void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
+{
+    uint32_t temp = 0;
+    // 1. Configure pinMode of Gpio pin
+    if (pGPIOHandle->pGPIOConfig->GPIO_PinMode <= GPIO_MODE_ANALOG )
+    {
+        // Non Interrupt Mode
+        temp = (pGPIOHandle->pGPIOConfig->GPIO_PinMode << (2*pGPIOHandle->pGPIOConfig->GPIO_PinNumber)); // each pin has 2 bits in the MODER register, so we shift by 2*pinNumber
+        pGPIOHandle->pGPIOx->MODER |= temp;
+        temp = 0;
+    }
+    else
+    {
+        //Interupt Mode
+    }
+
+    // 2. Confifure the speed
+    temp = 0;
+    temp = (pGPIOHandle->pGPIOConfig->GPIO_PinSpeed << (2*pGPIOHandle->pGPIOConfig->GPIO_PinSpeed)); // each pin has 2 bits in the OSPEEDR register, so we shift by 2*pinNumber
+    pGPIOHandle->pGPIOx->OSPEEDR |= temp;
+
+    // 3. Configure the pull-up/pull-down settings
+    temp = 0;
+    temp = (pGPIOHandle->pGPIOConfig->GPIO_PinPuPdControl << (2*pGPIOHandle->pGPIOConfig->GPIO_PinPuPdControl)); // each pin has 2 bits in the PUPDR register, so we shift by 2*pinNumber
+    pGPIOHandle->pGPIOx->PUPDR |= temp;
+
+    // 4. Configure the output type
+    temp = 0;
+    temp = (pGPIOHandle->pGPIOConfig->GPIO_PinOPType << (pGPIOHandle->pGPIOConfig->GPIO_PinOPType)); // each pin has 1 bit in the OTYPER register, so we shift by pinNumber
+    pGPIOHandle->pGPIOx->OTYPER |= temp;
+
+    // 5. Configure the alternate function
+    if (pGPIOHandle->pGPIOConfig->GPIO_PinMode == GPIO_MODE_ALTFN)
+    {
+    }
+}
