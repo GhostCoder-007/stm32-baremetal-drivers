@@ -22,6 +22,24 @@ void GPIO_PeriClock_Control(GPIO_regDef_t *pGPIOx, uint8_t EnorDi)
 {
     if (EnorDi == ENABLE)
     {
-     GPIOA_PCLK_EN();
+             if (pGPIOx == GPIOA){ GPIOA_PCLK_EN();}
+        else if (pGPIOx == GPIOB) {GPIOB_PCLK_EN();}
+        else if (pGPIOx == GPIOC) {GPIOC_PCLK_EN();}
+        else if (pGPIOx == GPIOD) {GPIOD_PCLK_EN();}
+        else if (pGPIOx == GPIOE) {GPIOE_PCLK_EN();}
+        else if (pGPIOx == GPIOF) {GPIOF_PCLK_EN();}
+        else if (pGPIOx == GPIOG) {GPIOG_PCLK_EN();}
+        else if (pGPIOx == GPIOH) {GPIOH_PCLK_EN();}
+    }
+    else 
+    {
+             if (pGPIOx == GPIOA){ GPIOA_PCLK_DISABLE();}
+        else if (pGPIOx == GPIOB) {GPIOB_PCLK_DISABLE();}
+        else if (pGPIOx == GPIOC) {GPIOC_PCLK_DISABLE();}
+        else if (pGPIOx == GPIOD) {GPIOD_PCLK_DISABLE();}
+        else if (pGPIOx == GPIOE) {GPIOE_PCLK_DISABLE();}
+        else if (pGPIOx == GPIOF) {GPIOF_PCLK_DISABLE();}
+        else if (pGPIOx == GPIOG) {GPIOG_PCLK_DISABLE();}
+        else if (pGPIOx == GPIOH) {GPIOH_PCLK_DISABLE();}
     }
 }
