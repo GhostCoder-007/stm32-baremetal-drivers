@@ -32,15 +32,9 @@ typedef struct
 *       For more information about the APIs, check the function definitions
 ********************************************************************************/
 // Prototyping the GPIO API's
-
-void GPIO_PeriClock_Control(void);
-
-/*
-
-*/
-
-void GPIO_Init(void);
-void GPIO_DeInit(void);
+void GPIO_PeriClock_Control(GPIO_regDef_t *pGPIOx, uint8_t EnorDi);
+void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle);
+void GPIO_DeInit(GPIO_regDef_t *pGPIOx);
 
 /*
 GPIO Read and Write
