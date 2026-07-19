@@ -87,6 +87,9 @@ typedef struct
 #define GPIO_PIN_PU 1
 #define GPIO_PIN_PD 2
 
+#define GPIO_PIN_SET 1
+
+
 /********************************************************************************
 *                      APIs supported by this driver
 *       For more information about the APIs, check the function definitions
@@ -100,11 +103,11 @@ void GPIO_DeInit(GPIO_regDef_t *pGPIOx);
 GPIO Read and Write
 */
 
-void GPIO_ReadFromInputPin(void);
-void GPIO_ReadFromInputPort(void);
-void GPIO_WriteToOutputPin(void);
-void GPIO_WriteToOutputPort(void);    
-void GPIO_ToggleOutputPin(void);
+uint8_t GPIO_ReadFromInputPin(GPIO_regDef_t *pGPIOx, uint8_t PinNumber);
+uint16_t GPIO_ReadFromInputPort(GPIO_regDef_t *pGPIOx);
+void GPIO_WriteToOutputPin(GPIO_regDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
+void GPIO_WriteToOutputPort(GPIO_regDef_t *pGPIOx, uint8_t Value);    
+void GPIO_ToggleOutputPin(GPIO_regDef_t *pGPIOx, uint8_t PinNumber);
 
 /*
 ISR ORQ
