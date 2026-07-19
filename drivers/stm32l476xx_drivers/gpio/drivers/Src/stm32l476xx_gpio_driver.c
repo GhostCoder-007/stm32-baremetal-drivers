@@ -30,6 +30,7 @@ void GPIO_PeriClock_Control(GPIO_regDef_t *pGPIOx, uint8_t EnorDi)
         else if (pGPIOx == GPIOF) {GPIOF_PCLK_EN();}
         else if (pGPIOx == GPIOG) {GPIOG_PCLK_EN();}
         else if (pGPIOx == GPIOH) {GPIOH_PCLK_EN();}
+        else if (pGPIOx == GPIOI) {GPIOI_PCLK_EN();}
     }
     else 
     {
@@ -41,6 +42,7 @@ void GPIO_PeriClock_Control(GPIO_regDef_t *pGPIOx, uint8_t EnorDi)
         else if (pGPIOx == GPIOF) {GPIOF_PCLK_DISABLE();}
         else if (pGPIOx == GPIOG) {GPIOG_PCLK_DISABLE();}
         else if (pGPIOx == GPIOH) {GPIOH_PCLK_DISABLE();}
+        else if (pGPIOx == GPIOI) {GPIOI_PCLK_DISABLE();}
     }
 }
 /**********************************************************************************
@@ -96,5 +98,29 @@ void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
         temp2=pGPIOHandle->GPIOConfig.GPIO_PinNumber % 8; // getting mod gives the bit position
         pGPIOHandle->pGPIOx->AFR[temp1] |= ~(0xF << (4 * temp2)); // clear bits
         pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIOConfig.GPIO_PinAltFunMode << (4 * temp2)); //
+    }
+
+/**********************************************************************************
+ * @fn                - GPIO_DeInit
+ * 
+ * @brief             - Reinitializs GPIO peripheral. - make 1 and then 0 again so its not always reset
+ * 
+ * @param[in]         - pGPIOx.
+ * @param[in]         - 
+ * 
+ * @return            - None
+ */
+
+    void GPIO_DeInit(GPIO_regDef_t *pGPIOx)
+    {
+        if (pGPIOx == GPIOA){ GPIOA_PCLK_EN();}
+        else if (pGPIOx == GPIOB) {GPIOB_REG_RESET();}
+        else if (pGPIOx == GPIOC) {GPIOC_REG_RESET();}
+        else if (pGPIOx == GPIOD) {GPIOD_REG_RESET();}
+        else if (pGPIOx == GPIOE) {GPIOE_REG_RESET();}
+        else if (pGPIOx == GPIOF) {GPIOF_REG_RESET();}
+        else if (pGPIOx == GPIOG) {GPIOG_REG_RESET();}
+        else if (pGPIOx == GPIOH) {GPIOH_REG_RESET();}
+        else if (pGPIOx == GPIOI) {GPIOI_REG_RESET();}
     }
 }

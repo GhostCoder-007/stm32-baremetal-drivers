@@ -159,6 +159,17 @@
 #define GPIOH_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 7)
 #define GPIOI_PCLK_DISABLE()      RCC->AHB2ENR &= ~(1 << 8)
 
+ /* clock reset GPIOx regiser (1 then 0 - reset and release)*/
+#define GPIOA_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 0); RCC->AHB2RSTR &= ~(1 << 0);} while(0) 
+#define GPIOB_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 1); RCC->AHB2RSTR &= ~(1 << 1);} while(0) 
+#define GPIOC_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 2); RCC->AHB2RSTR &= ~(1 << 2);} while(0) 
+#define GPIOD_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 3); RCC->AHB2RSTR &= ~(1 << 3);} while(0) 
+#define GPIOE_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 4); RCC->AHB2RSTR &= ~(1 << 4);} while(0) 
+#define GPIOF_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 5); RCC->AHB2RSTR &= ~(1 << 5);} while(0) 
+#define GPIOG_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 6); RCC->AHB2RSTR &= ~(1 << 6);} while(0) 
+#define GPIOH_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 7); RCC->AHB2RSTR &= ~(1 << 7);} while(0) 
+#define GPIOI_REG_RESET()      do{RCC->AHB2RSTR |= (1 << 8); RCC->AHB2RSTR &= ~(1 << 8);} while(0) 
+
 /* clock enable macro for spi peripheral */
 #define SPI2_PCLK_EN()       RCC->APB1ENR1 |= (1 << 14)
 #define SPI3_PCLK_EN()       RCC->APB1ENR1 |= (1 << 15)
