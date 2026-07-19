@@ -61,7 +61,8 @@ void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
     {
         // Non Interrupt Mode
         temp = (pGPIOHandle->GPIOConfig.GPIO_PinMode << (2*pGPIOHandle->GPIOConfig.GPIO_PinNumber)); // each pin has 2 bits in the MODER register, so we shift by 2*pinNumber
-        pGPIOHandle->pGPIOx->MODER |= temp;
+        pGPIOHandle->pGPIOx->MODER &= ~(0x03 << pGPIOHandle->GPIOConfig.GPIO_PinNumber); // clearing bit
+        pGPIOHandle->pGPIOx->MODER |= temp; // setting bit
         temp = 0;
     }
     else
@@ -72,24 +73,28 @@ void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
     // 2. Confifure the speed
     temp = 0;
     temp = (pGPIOHandle->GPIOConfig.GPIO_PinSpeed << (2*pGPIOHandle->GPIOConfig.GPIO_PinSpeed)); // each pin has 2 bits in the OSPEEDR register, so we shift by 2*pinNumber
+    pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x03 << pGPIOHandle->GPIOConfig.GPIO_PinNumber);// clearing bit
     pGPIOHandle->pGPIOx->OSPEEDR |= temp;
 
     // 3. Configure the pull-up/pull-down settings
     temp = 0;
     temp = (pGPIOHandle->GPIOConfig.GPIO_PinPuPdControl << (2*pGPIOHandle->GPIOConfig.GPIO_PinPuPdControl)); // each pin has 2 bits in the PUPDR register, so we shift by 2*pinNumber
+    pGPIOHandle->pGPIOx->PUPDR &= ~(0x03 << pGPIOHandle->GPIOConfig.GPIO_PinNumber);// clearing bit
     pGPIOHandle->pGPIOx->PUPDR |= temp;
 
     // 4. Configure the output type
     temp = 0;
     temp = (pGPIOHandle->GPIOConfig.GPIO_PinOPType << (pGPIOHandle->GPIOConfig.GPIO_PinOPType)); // each pin has 1 bit in the OTYPER register, so we shift by pinNumber
+    pGPIOHandle->pGPIOx->OTYPER &= ~(0x01 << pGPIOHandle->GPIOConfig.GPIO_PinNumber);// clearing bit
     pGPIOHandle->pGPIOx->OTYPER |= temp;
 
     // 5. Configure the alternate function
     if (pGPIOHandle->GPIOConfig.GPIO_PinMode == GPIO_MODE_ALTFN)
     {
-        uint32_t temp1, temp2;
-        temp1=pGPIOHandle->GPIOConfig.GPIO_PinNumber / 8;
-        temp2=pGPIOHandle->GPIOConfig.GPIO_PinNumber % 8;
-        pGPIOHandle->pGPIOx->AFR
+        uint8_t temp1, temp2;
+        temp1=pGPIOHandle->GPIOConfig.GPIO_PinNumber / 8; // there are two tables of registers (low and high) getting / 8 -> if 1 its high
+        temp2=pGPIOHandle->GPIOConfig.GPIO_PinNumber % 8; // getting mod gives the bit position
+        pGPIOHandle->pGPIOx->AFR[temp1] |= ~(0xF << (4 * temp2)); // clear bits
+        pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIOConfig.GPIO_PinAltFunMode << (4 * temp2)); //
     }
 }
