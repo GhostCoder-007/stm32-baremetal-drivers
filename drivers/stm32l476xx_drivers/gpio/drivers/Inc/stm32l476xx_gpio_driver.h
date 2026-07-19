@@ -23,7 +23,7 @@ typedef struct
 typedef struct
 {
     GPIO_regDef_t*pGPIOx;          /*!< This holds the base address of the GPIO port to which the pin belongs */
-    GPIO_PinConfig_t*pGPIOConfig;  /*!< This holds the GPIO pin configuration settings */
+    GPIO_PinConfig_t GPIOConfig;  /*!< This holds the GPIO pin configuration settings */
 
 }GPIO_HANDLE_t;
 

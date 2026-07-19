@@ -57,10 +57,10 @@ void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
 {
     uint32_t temp = 0;
     // 1. Configure pinMode of Gpio pin
-    if (pGPIOHandle->pGPIOConfig->GPIO_PinMode <= GPIO_MODE_ANALOG )
+    if (pGPIOHandle->GPIOConfig.GPIO_PinMode <= GPIO_MODE_ANALOG )
     {
         // Non Interrupt Mode
-        temp = (pGPIOHandle->pGPIOConfig->GPIO_PinMode << (2*pGPIOHandle->pGPIOConfig->GPIO_PinNumber)); // each pin has 2 bits in the MODER register, so we shift by 2*pinNumber
+        temp = (pGPIOHandle->GPIOConfig.GPIO_PinMode << (2*pGPIOHandle->GPIOConfig.GPIO_PinNumber)); // each pin has 2 bits in the MODER register, so we shift by 2*pinNumber
         pGPIOHandle->pGPIOx->MODER |= temp;
         temp = 0;
     }
@@ -71,21 +71,25 @@ void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
 
     // 2. Confifure the speed
     temp = 0;
-    temp = (pGPIOHandle->pGPIOConfig->GPIO_PinSpeed << (2*pGPIOHandle->pGPIOConfig->GPIO_PinSpeed)); // each pin has 2 bits in the OSPEEDR register, so we shift by 2*pinNumber
+    temp = (pGPIOHandle->GPIOConfig.GPIO_PinSpeed << (2*pGPIOHandle->GPIOConfig.GPIO_PinSpeed)); // each pin has 2 bits in the OSPEEDR register, so we shift by 2*pinNumber
     pGPIOHandle->pGPIOx->OSPEEDR |= temp;
 
     // 3. Configure the pull-up/pull-down settings
     temp = 0;
-    temp = (pGPIOHandle->pGPIOConfig->GPIO_PinPuPdControl << (2*pGPIOHandle->pGPIOConfig->GPIO_PinPuPdControl)); // each pin has 2 bits in the PUPDR register, so we shift by 2*pinNumber
+    temp = (pGPIOHandle->GPIOConfig.GPIO_PinPuPdControl << (2*pGPIOHandle->GPIOConfig.GPIO_PinPuPdControl)); // each pin has 2 bits in the PUPDR register, so we shift by 2*pinNumber
     pGPIOHandle->pGPIOx->PUPDR |= temp;
 
     // 4. Configure the output type
     temp = 0;
-    temp = (pGPIOHandle->pGPIOConfig->GPIO_PinOPType << (pGPIOHandle->pGPIOConfig->GPIO_PinOPType)); // each pin has 1 bit in the OTYPER register, so we shift by pinNumber
+    temp = (pGPIOHandle->GPIOConfig.GPIO_PinOPType << (pGPIOHandle->GPIOConfig.GPIO_PinOPType)); // each pin has 1 bit in the OTYPER register, so we shift by pinNumber
     pGPIOHandle->pGPIOx->OTYPER |= temp;
 
     // 5. Configure the alternate function
-    if (pGPIOHandle->pGPIOConfig->GPIO_PinMode == GPIO_MODE_ALTFN)
+    if (pGPIOHandle->GPIOConfig.GPIO_PinMode == GPIO_MODE_ALTFN)
     {
+        uint32_t temp1, temp2;
+        temp1=pGPIOHandle->GPIOConfig.GPIO_PinNumber / 8;
+        temp2=pGPIOHandle->GPIOConfig.GPIO_PinNumber % 8;
+        pGPIOHandle->pGPIOx->AFR
     }
 }
