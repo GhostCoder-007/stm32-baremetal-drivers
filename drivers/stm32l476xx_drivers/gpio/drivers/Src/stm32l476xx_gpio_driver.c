@@ -58,12 +58,13 @@ void GPIO_PeriClock_Control(GPIO_regDef_t *pGPIOx, uint8_t EnorDi)
 void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
 {
     uint32_t temp = 0;
+    uint8_t pinPos = pGPIOHandle->GPIOConfig.GPIO_PinNumber;
     // 1. Configure pinMode of Gpio pin
     if (pGPIOHandle->GPIOConfig.GPIO_PinMode <= GPIO_MODE_ANALOG )
     {
         // Non Interrupt Mode
-        temp = (pGPIOHandle->GPIOConfig.GPIO_PinMode << (2*pGPIOHandle->GPIOConfig.GPIO_PinNumber)); // each pin has 2 bits in the MODER register, so we shift by 2*pinNumber
-        pGPIOHandle->pGPIOx->MODER &= ~(0x03 << pGPIOHandle->GPIOConfig.GPIO_PinNumber); // clearing bit
+        temp = (pGPIOHandle->GPIOConfig.GPIO_PinMode << (2 * pinPos)); // each pin has 2 bits in the MODER register
+        pGPIOHandle->pGPIOx->MODER &= ~(0x03 << (2 * pinPos)); // clear the target 2-bit field
         pGPIOHandle->pGPIOx->MODER |= temp; // setting bit
         temp = 0;
     }
@@ -74,20 +75,20 @@ void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
 
     // 2. Confifure the speed
     temp = 0;
-    temp = (pGPIOHandle->GPIOConfig.GPIO_PinSpeed << (2*pGPIOHandle->GPIOConfig.GPIO_PinSpeed)); // each pin has 2 bits in the OSPEEDR register, so we shift by 2*pinNumber
-    pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x03 << pGPIOHandle->GPIOConfig.GPIO_PinNumber);// clearing bit
+    temp = (pGPIOHandle->GPIOConfig.GPIO_PinSpeed << (2 * pinPos)); // each pin has 2 bits in OSPEEDR
+    pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x03 << (2 * pinPos)); // clear the target 2-bit field
     pGPIOHandle->pGPIOx->OSPEEDR |= temp;
 
     // 3. Configure the pull-up/pull-down settings
     temp = 0;
-    temp = (pGPIOHandle->GPIOConfig.GPIO_PinPuPdControl << (2*pGPIOHandle->GPIOConfig.GPIO_PinPuPdControl)); // each pin has 2 bits in the PUPDR register, so we shift by 2*pinNumber
-    pGPIOHandle->pGPIOx->PUPDR &= ~(0x03 << pGPIOHandle->GPIOConfig.GPIO_PinNumber);// clearing bit
+    temp = (pGPIOHandle->GPIOConfig.GPIO_PinPuPdControl << (2 * pinPos)); // each pin has 2 bits in PUPDR
+    pGPIOHandle->pGPIOx->PUPDR &= ~(0x03 << (2 * pinPos)); // clear the target 2-bit field
     pGPIOHandle->pGPIOx->PUPDR |= temp;
 
     // 4. Configure the output type
     temp = 0;
-    temp = (pGPIOHandle->GPIOConfig.GPIO_PinOPType << (pGPIOHandle->GPIOConfig.GPIO_PinOPType)); // each pin has 1 bit in the OTYPER register, so we shift by pinNumber
-    pGPIOHandle->pGPIOx->OTYPER &= ~(0x01 << pGPIOHandle->GPIOConfig.GPIO_PinNumber);// clearing bit
+    temp = (pGPIOHandle->GPIOConfig.GPIO_PinOPType << pinPos); // each pin has 1 bit in OTYPER
+    pGPIOHandle->pGPIOx->OTYPER &= ~(0x01 << pinPos); // clear the target 1-bit field
     pGPIOHandle->pGPIOx->OTYPER |= temp;
 
     // 5. Configure the alternate function
@@ -96,7 +97,7 @@ void GPIO_Init(GPIO_HANDLE_t *pGPIOHandle)
         uint8_t temp1, temp2;
         temp1=pGPIOHandle->GPIOConfig.GPIO_PinNumber / 8; // there are two tables of registers (low and high) getting / 8 -> if 1 its high
         temp2=pGPIOHandle->GPIOConfig.GPIO_PinNumber % 8; // getting mod gives the bit position
-        pGPIOHandle->pGPIOx->AFR[temp1] |= ~(0xF << (4 * temp2)); // clear bits
+        pGPIOHandle->pGPIOx->AFR[temp1] &= ~(0xF << (4 * temp2)); // clear bits
         pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIOConfig.GPIO_PinAltFunMode << (4 * temp2)); //
     }
 }

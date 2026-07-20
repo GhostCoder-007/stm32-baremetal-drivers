@@ -209,4 +209,6 @@
 #define ENABLE 1
 #define DISABLE 0
 
+#include <stm32l476xx_gpio_driver.h>
+
 #endif /* INC_STM32L476XX_H_ */
